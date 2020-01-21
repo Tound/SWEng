@@ -19,6 +19,7 @@ public class EngineeringApplication extends Application{
 	
 	private Scene home;
 	private Scene main;
+	private Scene settings;
 	private Scene scene1;
 	private Scene scene2;
 	private Stage stage;
@@ -57,26 +58,24 @@ public class EngineeringApplication extends Application{
 		gridPane.setAlignment(Pos.CENTER);
 		
 		//Setup Buttons
-		Button switchToMain = new Button("Learn!");
-		switchToMain.setOnAction(e -> mainButtonPress());
+		Button mainButton = new Button("Learn!");
+		mainButton.setOnAction(e -> mainButtonPress());
 		
-		Button switchToSettings = new Button("Settings");
-		switchToSettings.setOnAction(e -> settingsButtonPress());
+		Button settingsButton = new Button("Settings");
+		settingsButton.setOnAction(e -> settingsButtonPress());
 		
 		Button quitButton = new Button("Quit");
 		quitButton.setOnAction(e -> quitButtonPress());
 		
 		//Add elements
 		gridPane.add(title,1,1);
-		gridPane.add(switchToMain,1,2);
-		gridPane.add(title,1,0);
-		gridPane.add(title,1,0);
-		gridPane.add(title,1,0);
-		gridPane.add(title,1,0);
+		gridPane.add(mainButton,1,2);
+		gridPane.add(settingsButton,1,3);
+		gridPane.add(quitButton,1,4);
 		
 		//Finalise Scene
 		home = new Scene(gridPane, width, height);
-		home.getStylesheets().add("");
+		home.getStylesheets().add("style/homeScreen.css");
 		
 	}
 	private void setupMain() {
