@@ -23,9 +23,6 @@ public class EngineeringApplication extends Application{
 	private Scene scene2;
 	private Stage stage;
 	
-	
-
-	
 	public static void main(String[] args) {
 		System.out.println("Running...");
 		launch(args);
