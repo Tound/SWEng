@@ -27,6 +27,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -131,18 +132,30 @@ public class EngineeringApplication extends Application{
 		
 		//Setup Blank columns
 		ColumnConstraints column1 = new ColumnConstraints();
-		column1.setPercentWidth(5);
-		ColumnConstraints column2 = new ColumnConstraints();
-		column2.setPercentWidth(8);
-		gridPane.getColumnConstraints().addAll(column1, column2);
+		column1.setPercentWidth(10);
+		/*ColumnConstraints column2 = new ColumnConstraints();
+		column2.setPercentWidth(8);*/
+		gridPane.getColumnConstraints().addAll(column1);
 		
 		//Set title
-		Text title = new Text("3D Model!");
+		Text title = new Text("Hubble Space Telescope!");
 		title.setId("mainTitle");
 		title.setTextAlignment(TextAlignment.CENTER);
 		
 		//Setup text
+		Text list = new Text();
+		list.setId("list");
+		list.setText("Elements: \n"
+				+ "Solar Panels \n"
+				+ "Fuel Cells \n"
+				+ "Computer \n"
+				+ "Telescope \n"
+				+ "Boosters \n"
+				+ "lol \n"
+				+ "lmao \n"
+				+ "Stuff \n");
 		
+		Rectangle rect = new Rectangle(10,100);
 		//Setup Buttons
 		Button settingsButton = new Button("Settings");
 		settingsButton.setOnAction(e -> settingsButtonPress());
@@ -204,9 +217,10 @@ public class EngineeringApplication extends Application{
         timeline.play();
 		
 		//Add to pane
-		gridPane.add(title,2,0);
-		gridPane.add(settingsButton,3,0);
-		gridPane.add(quitButton,4,0);
+		gridPane.add(title,1,0);
+		gridPane.add(settingsButton,2,0);
+		gridPane.add(quitButton,3,0);
+		gridPane.add(list,2,1);
 		gridPane.setHalignment(title, HPos.CENTER);
 		gridPane.setHalignment(model, HPos.CENTER);
 		//gridPane.setGridLinesVisible(true);
@@ -216,10 +230,11 @@ public class EngineeringApplication extends Application{
 		modelScene.setOnMouseEntered(e -> mouseOnModel());
 		modelScene.setOnMouseExited(e -> mouseOffModel());
 		modelScene.setOnMousePressed(e -> checkMouseCoords(e.getX(), e.getY()));
-		gridPane.add(modelScene, 2, 1);
+		gridPane.add(modelScene, 1, 1);
 		
 		//gridPane.setColumnSpan(title, 2);
 		//gridPane.setColumnSpan(modelScene, 1);
+		gridPane.setColumnSpan(list, 2);
 		
 		//Finalise Scene
 		main = new Scene(gridPane, width, height);
