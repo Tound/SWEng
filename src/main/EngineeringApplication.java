@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Camera;
@@ -20,7 +21,9 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
@@ -86,6 +89,7 @@ public class EngineeringApplication extends Application{
 	
 	private void setupHome() {
 		Text title = new Text("Engineering Application!");
+		title.setId("title");
 		GridPane gridPane = new GridPane();
 		
 		gridPane.setPadding(new Insets(10,10,10,10));
@@ -122,14 +126,24 @@ public class EngineeringApplication extends Application{
 		gridPane.setVgap(10);
 		gridPane.setHgap(10);
 		gridPane.setAlignment(Pos.CENTER);
+		//gridPane.setPrefSize(1280,720);
+		//gridPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+		
+		//Setup Blank columns
+		ColumnConstraints column1 = new ColumnConstraints();
+		column1.setPercentWidth(5);
+		ColumnConstraints column2 = new ColumnConstraints();
+		column2.setPercentWidth(8);
+		gridPane.getColumnConstraints().addAll(column1, column2);
 		
 		//Set title
 		Text title = new Text("3D Model!");
+		title.setId("mainTitle");
 		title.setTextAlignment(TextAlignment.CENTER);
-		//Setup Buttons
-		Button mainButton = new Button("Learn!");
-		mainButton.setOnAction(e -> mainButtonPress());
 		
+		//Setup text
+		
+		//Setup Buttons
 		Button settingsButton = new Button("Settings");
 		settingsButton.setOnAction(e -> settingsButtonPress());
 		
@@ -173,7 +187,7 @@ public class EngineeringApplication extends Application{
 		Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
 		
 		camera.getTransforms().addAll(pivot, yRotate, new Rotate(-20, Rotate.X_AXIS));
-		camera.getTransforms().add(new Translate(-340,-200,-300));
+		camera.getTransforms().add(new Translate(-400,-210,-300));
 		
 		//Set Camera Animation
         timeline = new Timeline(
@@ -190,19 +204,21 @@ public class EngineeringApplication extends Application{
         timeline.play();
 		
 		//Add to pane
-		gridPane.add(title,3,0);
-		gridPane.add(mainButton,4,0);
-		gridPane.add(settingsButton,5,0);
-		gridPane.add(quitButton,6,0);
+		gridPane.add(title,2,0);
+		gridPane.add(settingsButton,3,0);
+		gridPane.add(quitButton,4,0);
+		gridPane.setHalignment(title, HPos.CENTER);
+		gridPane.setHalignment(model, HPos.CENTER);
+		//gridPane.setGridLinesVisible(true);
 		
-		SubScene modelScene = new SubScene(model, 680, 400, true, SceneAntialiasing.BALANCED);
+		SubScene modelScene = new SubScene(model, 800, 500, true, SceneAntialiasing.BALANCED);
 		modelScene.setCamera(camera);
 		modelScene.setOnMouseEntered(e -> mouseOnModel());
 		modelScene.setOnMouseExited(e -> mouseOffModel());
 		modelScene.setOnMousePressed(e -> checkMouseCoords(e.getX(), e.getY()));
-		gridPane.add(modelScene, 3, 1);
+		gridPane.add(modelScene, 2, 1);
 		
-		//gridPane.setRowSpan(title, 3);
+		//gridPane.setColumnSpan(title, 2);
 		//gridPane.setColumnSpan(modelScene, 1);
 		
 		//Finalise Scene

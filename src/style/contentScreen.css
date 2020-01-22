@@ -1,7 +1,7 @@
-//Main screen style Sheet
+//Content screen style Sheet
 
 .root{
-
+	-fx-background-color: gray;
 }
 
 .button{
