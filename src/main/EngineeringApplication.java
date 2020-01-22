@@ -1,6 +1,5 @@
 package main;
 
-
 import java.io.File;
 
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
@@ -81,16 +80,17 @@ public class EngineeringApplication extends Application{
 		
 		setupTriggerPoints();
 		testTriggerPoint = new TriggerPoint(scene1,260,420,215,345,180);
+
 		System.out.println("Scenes Setup...");
 		
 		stage.setScene(home);
 		stage.show();
-		
 	}
 	
 	private void setupHome() {
 		Text title = new Text("Engineering Application!");
 		title.setId("title");
+
 		GridPane gridPane = new GridPane();
 		
 		gridPane.setPadding(new Insets(10,10,10,10));
