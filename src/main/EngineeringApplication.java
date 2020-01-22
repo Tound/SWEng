@@ -31,6 +31,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import tools.MouseCoords;
 
 public class EngineeringApplication extends Application{
 
@@ -49,6 +50,9 @@ public class EngineeringApplication extends Application{
 	private Timeline timeline;
 	private int animationDuration = 15;
 	private boolean mainModelPaused = false;
+	private int angleRotated;
+	
+	private TriggerPoint testTriggerPoint;
 	
 	public static void main(String[] args) {
 		System.out.println("Running...");
@@ -69,6 +73,10 @@ public class EngineeringApplication extends Application{
 		setupHome();
 		setupMain();
 		setupSettings();
+		setupSlide();
+		
+		setupTriggerPoints();
+		testTriggerPoint = new TriggerPoint(scene1,260,420,215,345,180);
 		System.out.println("Scenes Setup...");
 		
 		stage.setScene(home);
@@ -226,8 +234,27 @@ public class EngineeringApplication extends Application{
 	}
 	
 	private void setupSlide() {
+		//Scene Setup
+		GridPane gridPane = new GridPane();
+		gridPane.setPadding(new Insets(10,10,10,10));
+		gridPane.setVgap(10);
+		gridPane.setHgap(10);
+		gridPane.setAlignment(Pos.CENTER);
 		
+		//Set title
+		Text title = new Text("Content!");
+		title.setTextAlignment(TextAlignment.CENTER);
+		//Setup Buttons
+		Button homeButton = new Button("Back!");
+		homeButton.setOnAction(e -> homeButtonPress());
+
+		gridPane.add(title, 1, 0);
+		gridPane.add(homeButton, 1, 1);
+		scene1 = new Scene(gridPane, width, height);
+		scene1.getStylesheets().add("style/contentScreen.css");
+		System.out.println("Content Screen Setup...");
 	}
+	
 	private void homeButtonPress() {
 		stage.setScene(home);
 	}
@@ -242,20 +269,39 @@ public class EngineeringApplication extends Application{
 	}
 	private void mouseOnModel() {
 		timeline.pause();
-		System.out.println(timeline.getCurrentTime());
-		double currentTime = timeline.getCurrentTime().toSeconds();;
-		double angleRotated = currentTime/animationDuration * 360;
-		System.out.println((int)angleRotated + " degrees");
+		System.out.println(timeline.getCurrentTime().toSeconds());
+		double currentTime = timeline.getCurrentTime().toSeconds();
+		angleRotated = (int)(currentTime/animationDuration * 360);
+		System.out.println(angleRotated + " degrees");
 		mainModelPaused = true;
 	}
 	private void mouseOffModel() {
-		timeline.play();;
+		timeline.play();
 		System.out.println("Model Resumed");
 		mainModelPaused = false;
 	}
 	
 	private void checkMouseCoords(double mouseX, double mouseY) {
+		MouseCoords mouseCoords = new MouseCoords(mouseX, mouseY);
+		if(mouseOnArea(mouseCoords)) {
+			System.out.println(testTriggerPoint.getScene());
+			stage.setScene(testTriggerPoint.getScene());
+		}
+		System.out.println(mouseX + "," + mouseY);
+	}
+	private boolean mouseOnArea(MouseCoords mouseCoords) {
+		if(260 < mouseCoords.getMouseX() && mouseCoords.getMouseX() < 440 && angleRotated == testTriggerPoint.getAngle()) {
+			if(215 < mouseCoords.getMouseY() && mouseCoords.getMouseY() < 348) {
+				return true;
+			}
+		}
+		System.out.println("Click not in area");
+		return false;
+
+	}
+	
+	private void setupTriggerPoints() {
+		
 		
 	}
-
 }
