@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.input.PickResult;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -124,14 +125,10 @@ public class EngineeringApplication extends Application{
 		gridPane.setVgap(10);
 		gridPane.setHgap(10);
 		gridPane.setAlignment(Pos.CENTER);
-		//gridPane.setPrefSize(1280,720);
-		//gridPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
 		
 		//Setup Blank columns
 		ColumnConstraints column1 = new ColumnConstraints();
 		column1.setPercentWidth(10);
-		/*ColumnConstraints column2 = new ColumnConstraints();
-		column2.setPercentWidth(8);*/
 		gridPane.getColumnConstraints().addAll(column1);
 		
 		//Set title
@@ -153,6 +150,7 @@ public class EngineeringApplication extends Application{
 				+ "Stuff \n");
 		
 		Rectangle rect = new Rectangle(10,100);
+
 		//Setup Buttons
 		Button settingsButton = new Button("Settings");
 		settingsButton.setOnAction(e -> settingsButtonPress());
@@ -224,7 +222,10 @@ public class EngineeringApplication extends Application{
 		
 		SubScene modelScene = new SubScene(model, 800, 500, true, SceneAntialiasing.BALANCED);
 		modelScene.setCamera(camera);
-		modelScene.setOnMouseEntered(e -> mouseOnModel());
+		modelScene.setOnMouseEntered(e -> {mouseOnModel();
+											PickResult pr = e.getPickResult();
+										System.out.println(pr.getIntersectedPoint());
+									});
 		modelScene.setOnMouseExited(e -> mouseOffModel());
 		modelScene.setOnMousePressed(e -> checkMouseCoords(e.getX(), e.getY()));
 		gridPane.add(modelScene, 1, 1);
