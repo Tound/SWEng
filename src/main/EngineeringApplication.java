@@ -1,5 +1,6 @@
 package main;
 
+import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 import com.interactivemesh.jfx.importer.tds.TdsModelImporter;
 
@@ -173,10 +174,11 @@ public class EngineeringApplication extends Application{
 			Node[] tdsMesh = (Node[]) tdsImporter.getImport();
 			tdsImporter.close();
 			model.getChildren().addAll(tdsMesh);
+
 		}else if(fileExtention == "stl") {
 			//STL
 			StlMeshImporter stlImporter = new StlMeshImporter();
-			stlImporter.read("src/3D_Models/");
+			stlImporter.read("src/3D_Models/CylinderHead-stl/CylinderHead-binary.stl");
 			TriangleMesh stlMesh = stlImporter.getImport();
 			
 			MeshView stlMeshView = new MeshView();
@@ -184,7 +186,22 @@ public class EngineeringApplication extends Application{
 			stlMeshView.setMesh(stlMesh);
 			stlImporter.close();
 			model.getChildren().add(stlMeshView);
-		}else {
+
+		}else if(fileExtention == "obj"){
+			//Obj
+			/*ObjModelImporter objImporter = new ObjModelImporter();
+			objImporter.read("src/3D_Models/Scooter.obj");
+			TriangleMesh objMesh = objImporter.getImport();
+
+			MeshView objMeshView = new MeshView();
+			objMeshView.setMaterial(new PhongMaterial(Color.GRAY));
+			objMeshView.setMesh(objMesh);
+			objImporter.close();
+			model.getChildren().add();*/
+
+		}else if(fileExtention == "X3D"){
+			//TODO
+		}else{
 			System.out.println("Model file type not supported/File not found");
 		}
 		
@@ -223,9 +240,9 @@ public class EngineeringApplication extends Application{
 		SubScene modelScene = new SubScene(model, 800, 500, true, SceneAntialiasing.BALANCED);
 		modelScene.setCamera(camera);
 		modelScene.setOnMouseEntered(e -> {mouseOnModel();
-											PickResult pr = e.getPickResult();
+										PickResult pr = e.getPickResult();
 										System.out.println(pr.getIntersectedPoint());
-									});
+										});
 		modelScene.setOnMouseExited(e -> mouseOffModel());
 		modelScene.setOnMousePressed(e -> checkMouseCoords(e.getX(), e.getY()));
 		gridPane.add(modelScene, 1, 1);
@@ -326,11 +343,9 @@ public class EngineeringApplication extends Application{
 		}
 		System.out.println("Click not in area");
 		return false;
-
 	}
 	
 	private void setupTriggerPoints() {
-		
 		
 	}
 }

@@ -1,0 +1,26 @@
+
+CylinderHead-ascii.stl - STL Model
+CylinderHead-binary.stl - STL Model
+
+Derivative work from 'Cylinder head' at http://www.opencascade.org/showroom/shapegallery/gal4/
+                                      
+Contributor:
+InteractiveMesh e.K.
+August Lammersdorf
+Hauptstrasse 28d
+85737 Ismaning
+Germany / Munich Area
+www.InteractiveMesh.com/impressum.html
+
+
+'Cylinder head' (C) Copyright Open CASCADE Technology.
+
+Redistribution and use are permitted according to the 
+
+Open CASCADE Technology Public License
+
+to be found in the folder of this file or at http://www.opencascade.org/getocc/license/
+
+--------------------------------------------------------------------------------
+
+
