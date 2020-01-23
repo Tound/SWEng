@@ -1,7 +1,5 @@
 package main;
 
-import java.io.File;
-
 import com.interactivemesh.jfx.importer.stl.StlMeshImporter;
 import com.interactivemesh.jfx.importer.tds.TdsModelImporter;
 
@@ -22,7 +20,6 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.MeshView;
